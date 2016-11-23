@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+CONFIG_FILE=/etc/wpa_supplicant/wpa_supplicant.conf
+
+if [ `whoami` != "root" ]; then
+    echo "Must be root privilege to configure wifi settings"
+    exit
+else
+    echo -e "Input wifi parameters as the following format\nSSID passphrase:"
+    read SSID PASS
+    if [ -n $SSID -a -n $PASS ]; then
+        grep -o "ssid=\"$SSID\"" /etc/wpa_supplicant/wpa_supplicant.conf
+        if [ $? -eq 1 ]; then   # new ssid entry
+            echo "" >> /etc/wpa_supplicant/wpa_supplicant.conf
+            wpa_passphrase $SSID $PASS >> /etc/wpa_supplicant/wpa_supplicant.conf
+            echo "SSID $SSID was registered."
+            # systemctl restart network-wireless@wlp2s0.service
+        else
+            echo "Given SSID is already registered! This program won't update wpa_supplicant.conf."
+        fi
+    else
+        echo "Too few args!"
+    fi
+fi

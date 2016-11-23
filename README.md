@@ -67,4 +67,4 @@ The following is `network-wireless@.service`.
 Writing the above code I refered to [Wireless network configuration](https://wiki.archlinux.org/index.php/Wireless_network_configuration) on ArchWiki. 
 If you don't use the other network managers (Netctl, NetworkManager, &#x2026;)
 except above wpa\_supplicant,
-you can use this code modifying the wireless interface `wlp2so`.
+you can use this code by modifying the wireless interface `wlp2s0`.

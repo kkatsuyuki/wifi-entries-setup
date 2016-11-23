@@ -1,23 +1,18 @@
-- [addWifi](#sec-1)
-  - [Requirements](#sec-1-1)
-  - [Install](#sec-1-2)
-  - [Usage](#sec-1-3)
-  - [Modify](#sec-1-4)
 
-# addWifi<a id="orgheadline5"></a>
+# addWifi
 
-`addWifi` is the shell-script program which adds the new SSID entry read from 
-standard input to wpa\_supplicant.conf using wpa\_passphrase. 
-To my knowledge interactive program `wpa_cli` attached with wpa\_supplicant can update 
+`addWifi` is the shell-script program which adds the new SSID entry 
+to `wpa_supplicant.conf` using `wpa_passphrase`. 
+To my knowledge interactive program `wpa_cli` attached with `wpa_supplicant` can update 
 the file, but it refreshes already registed entries.
 
-## Requirements<a id="orgheadline1"></a>
+## Requirements
 
 It requires the following wifi confuguration program.
 
--   wpa\_supplicant
+-   [wpa\_supplicant](https://w1.fi/wpa_supplicant/)
 
-## Install<a id="orgheadline2"></a>
+## Install
 
 Download and move this executable `addWifi` file to the directory included in `$PATH`.
 
@@ -25,9 +20,10 @@ Download and move this executable `addWifi` file to the directory included in `$
     $ cd addWifi
     $ cp addWifi /to/yourpath/
 
-## Usage<a id="orgheadline3"></a>
+## Usage
 
-You can use this script very easy. Get the root privilege and input the SSID 
+You can use this script very easy. Get the root privilege and execute `addWIfi`, then 
+input the SSID 
 and its passphrase you want to access. The following is the example to add the wireless
 network whose SSID and passphrase are "hoge" and "hugaHuga", respectively.
 
@@ -37,14 +33,17 @@ network whose SSID and passphrase are "hoge" and "hugaHuga", respectively.
     > hoge hugaHuga
     SSID hoge was registered.
 
-## Modify<a id="orgheadline4"></a>
+## Modify
 
 Maybe you should add the command to connect the wifi network. In the case of 
-me I use the wireless interface `wlp2s0`, so I uncomment the following command.
+me I use the wireless interface `wlp2s0`, so I uncomment the following command in 
+`addWifi`.
 
+    ⋮
     # systemctl restart network-wireless@wlp2s0.service
+    ⋮
 
-`network-wireless@.service`
+The following is `network-wireless@.service`.
 
     [Unit]
     Description=Wireless network connectivity (%i)
@@ -65,7 +64,7 @@ me I use the wireless interface `wlp2s0`, so I uncomment the following command.
     [Install]
     WantedBy=multi-user.target
 
-About the above code I refered to [Wireless network configuration](https://wiki.archlinux.org/index.php/Wireless_network_configuration) on ArchWiki. 
+Writing the above code I refered to [Wireless network configuration](https://wiki.archlinux.org/index.php/Wireless_network_configuration) on ArchWiki. 
 If you don't use the other network managers (Netctl, NetworkManager, &#x2026;)
 except above wpa\_supplicant,
 you can use this code modifying the wireless interface `wlp2so`.

@@ -14,57 +14,44 @@ It requires the following wifi confuguration program.
 
 ## Install
 
-Download and move this executable `addWifi` file to the directory included in `$PATH`.
+At first download and modify the path of `wpa_supplicant.conf` in `addWifi`.
 
     $ git clone https://github.com/kkatsuyuki/addWifi.git
     $ cd addWifi
-    $ cp addWifi /to/yourpath/
+    
+In `addWifi` edit as the following.
+
+    CONFIG_FILE=/to/yourpath/wpa_supplicant.conf
+Then move this executable `addWifi` file to the directory included in `$PATH` (usually `/usr/bin/`).
+
+    $ cp addWifi /usr/bin/
 
 ## Usage
 
-You can use this script very easy. Get the root privilege and execute `addWIfi`, then 
-input the SSID 
-and its passphrase you want to access. The following is the example to add the wireless
-network whose SSID and passphrase are "hoge" and "hugaHuga", respectively.
+You can use this script very easy. Get the root privilege and execute `addWIfi` 
+with SSID and Passphrase(Optional) arguments. 
 
-    # addWifi
-    Input wifi parameters as the following format
-    SSID passphrase:
-    > hoge hugaHuga
-    SSID hoge was registered.
+    Usage: addWifi [-h] SSID [Passphrase]
 
-## Modify
+IF Passphrase is not given, the entry is registered as the open network.
+If `addWIfi` is executed with `-h` option or no arguments, the help 
+message is appeared.
+The following is the example to add the wireless
+network whose SSID and passphrase are "foo" and "foobarbaz", respectively.
 
-Maybe you should add the command to connect the wifi network. In the case of 
-me I use the wireless interface `wlp2s0`, so I uncomment the following command in 
-`addWifi`.
+    # addWifi foo foobarbaz
+    Protected Wifi network
+    SSID foo was registered and you can connect.
 
-    ⋮
-    # systemctl restart network-wireless@wlp2s0.service
-    ⋮
+## How to connect the wifi after registered
 
-The following is `network-wireless@.service`.
+The followings are refered to [Wireless network configuration](https://wiki.archlinux.org/index.php/Wireless_network_configuration) on ArchWiki. 
 
-    [Unit]
-    Description=Wireless network connectivity (%i)
-    Wants=network.target
-    Before=network.target
+If necessary, make the wifi interface enabled at first.
+
+    # ip link set <interface> up
     
-    [Service]
-    Type=oneshot
-    RemainAfterExit=yes
-    
-    ExecStart=/usr/bin/ip link set dev %i up
-    ExecStart=/usr/bin/wpa_supplicant -B -i %i -c /etc/wpa_supplicant/wpa_supplicant.conf
-    # ExecStart=/usr/bin/dhcpcd -t 0 %i
-    ExecStart=/usr/bin/dhcpcd -p -b %i
-    
-    ExecStop=/usr/bin/ip link set dev %i down
-    
-    [Install]
-    WantedBy=multi-user.target
+Then get the authentification and IP address from the wireless network.
 
-Writing the above code I refered to [Wireless network configuration](https://wiki.archlinux.org/index.php/Wireless_network_configuration) on ArchWiki. 
-If you don't use the other network managers (Netctl, NetworkManager, &#x2026;)
-except above wpa\_supplicant,
-you can use this code by modifying the wireless interface `wlp2s0`.
+    # wpa_supplicant -B -i <interface> -c /to/yourpath/wpa_supplicant.conf
+    # dhcpcd -b <interface>

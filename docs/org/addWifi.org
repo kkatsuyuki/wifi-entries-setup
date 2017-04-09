@@ -1,0 +1,7 @@
+#+BEGIN_EXPORT html
+---
+layout: default
+---
+#+END_EXPORT
+* addWifi
+  shell-script program to add the new wifi to =wpa_supplicant.conf=

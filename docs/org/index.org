@@ -38,3 +38,5 @@ layout: default
 
 * Install
   Refer to [[https://github.com/kkatsuyuki/addWifi][README]].
+
+  Back: [[https://kkatsuyuki.github.io/][kkatsuyuki's github page]]

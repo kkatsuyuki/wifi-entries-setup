@@ -1,11 +1,64 @@
 ---
 layout: default
 ---
-<div id="outline-container-org5c95ef3" class="outline-2">
-<h2 id="org5c95ef3">addWifi</h2>
-<div class="outline-text-2" id="text-org5c95ef3">
+<div id="outline-container-org6f4e722" class="outline-2">
+<h2 id="org6f4e722">Motivation</h2>
+<div class="outline-text-2" id="text-org6f4e722">
 <p>
-shell-script program to add the new wifi to <code>wpa_supplicant.conf</code>
+Using <code>wpa_supplicant</code> as the authetification software of Wi-Fi network,
+every time I connect the new network, I have to edit its configuration file
+(ex. <code>wpa_supplicant.conf</code>). Editing it manually is very time-consuming for me.
+Using the interactive command <code>wpa_cli</code> attached to <code>wpa_supplicant</code>, 
+we can set the new Wi-Fi network to the configuration. But <code>wpa_cli</code> 
+actually overwrite it, so the original entries are removed. 
+So I made the shell-script program <code>addWifi</code> to add the new Wi-Fi entry to
+the assigned configuration file.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1635807" class="outline-2">
+<h2 id="org1635807">Features</h2>
+<div class="outline-text-2" id="text-org1635807">
+<ul class="org-ul">
+<li>Input Wi-Fi entry (<code>SSID</code>, <code>[Passphrase]</code>) are added to assigned configuration 
+file (ex. <code>wpa_supplicant.conf</code>)</li>
+<li>On root priviledge only execute the non-interactive command</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb246330" class="outline-2">
+<h2 id="orgb246330">Usage</h2>
+<div class="outline-text-2" id="text-orgb246330">
+<p>
+Get the root privilege and execute <code>addWifi</code> 
+with SSID and Passphrase (Optional) arguments. 
+</p>
+<pre class="example">
+Usage: addWifi [-h] SSID [Passphrase]
+</pre>
+
+<p>
+If Passphrase is not given, the entry is registered as the open network.
+If <code>addWifi</code> is executed with <code>-h</code> option or no arguments, the help 
+message is appeared.
+The following is the example to add the wireless
+network whose SSID and passphrase are "foo" and "foobarbaz", respectively.
+</p>
+<pre class="example">
+# addWifi foo foobarbaz
+Protected Wifi network
+SSID foo was registered and you can connect.
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org3970faa" class="outline-2">
+<h2 id="org3970faa">Install</h2>
+<div class="outline-text-2" id="text-org3970faa">
+<p>
+Refer to <a href="https://github.com/kkatsuyuki/addWifi">README</a>.
 </p>
 </div>
 </div>

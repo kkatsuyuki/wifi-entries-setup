@@ -3,5 +3,38 @@
 layout: default
 ---
 #+END_EXPORT
-* addWifi
-  shell-script program to add the new wifi to =wpa_supplicant.conf=
+* Motivation
+  Using =wpa_supplicant= as the authetification software of Wi-Fi network,
+  every time I connect the new network, I have to edit its configuration file
+  (ex. =wpa_supplicant.conf=). Editing it manually is very time-consuming for me.
+  Using the interactive command =wpa_cli= attached to =wpa_supplicant=, 
+  we can set the new Wi-Fi network to the configuration. But =wpa_cli= 
+  actually overwrite it, so the original entries are removed. 
+  So I made the shell-script program =addWifi= to add the new Wi-Fi entry to
+  the assigned configuration file.
+
+* Features
+  - Input Wi-Fi entry (=SSID=, =[Passphrase]=) are added to assigned configuration 
+    file (ex. =wpa_supplicant.conf=)
+  - On root priviledge only execute the non-interactive command
+
+* Usage
+  Get the root privilege and execute =addWifi= 
+  with SSID and Passphrase (Optional) arguments. 
+  #+BEGIN_EXAMPLE
+  Usage: addWifi [-h] SSID [Passphrase]
+  #+END_EXAMPLE
+
+  If Passphrase is not given, the entry is registered as the open network.
+  If =addWifi= is executed with =-h= option or no arguments, the help 
+  message is appeared.
+  The following is the example to add the wireless
+  network whose SSID and passphrase are "foo" and "foobarbaz", respectively.
+  #+BEGIN_EXAMPLE
+  # addWifi foo foobarbaz
+  Protected Wifi network
+  SSID foo was registered and you can connect.
+  #+END_EXAMPLE
+
+* Install
+  Refer to [[https://github.com/kkatsuyuki/addWifi][README]].

@@ -47,7 +47,7 @@ network whose SSID and passphrase are "foo" and "foobarbaz", respectively.
     1: bar
     2: baz
     
-    Which No. of SSID is registered? > 0
+    Which SSID is registered? (input by No.) > 0
     Input passphrase (default NONE) > foobarbaz
     Protected Wifi network
     SSID foo was registered and you can connect.

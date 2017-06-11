@@ -21,9 +21,9 @@ the assigned configuration file.
 <h2 id="org1635807">Features</h2>
 <div class="outline-text-2" id="text-org1635807">
 <ul class="org-ul">
-<li>Input Wi-Fi entry (<code>SSID</code>, <code>[Passphrase]</code>) are added to assigned configuration 
+<li>Input Wi-Fi entry (<code>SSID</code>, <code>[Passphrase]</code>) are added to the assigned configuration 
 file (ex. <code>wpa_supplicant.conf</code>)</li>
-<li>On root priviledge only execute the non-interactive command</li>
+<li>On root priviledge input SSID and Passphrase (optional) interactively following the prompt</li>
 </ul>
 </div>
 </div>
@@ -32,22 +32,28 @@ file (ex. <code>wpa_supplicant.conf</code>)</li>
 <h2 id="orgb246330">Usage</h2>
 <div class="outline-text-2" id="text-orgb246330">
 <p>
-Get the root privilege and execute <code>addWifi</code> 
-with SSID and Passphrase (Optional) arguments. 
+Get the root privilege and execute `addWifi`. 
 </p>
 <pre class="example">
-Usage: addWifi [-h] SSID [Passphrase]
+Usage: addWifi [-h]
 </pre>
 
 <p>
+Input the SSID and Passphrase (optional) interactively following the prompt.
 If Passphrase is not given, the entry is registered as the open network.
-If <code>addWifi</code> is executed with <code>-h</code> option or no arguments, the help 
-message is appeared.
+If `-h` option is added, the help message is appeared.
 The following is the example to add the wireless
 network whose SSID and passphrase are "foo" and "foobarbaz", respectively.
 </p>
 <pre class="example">
-# addWifi foo foobarbaz
+# addWifi
+Staring to scan WiFi ...
+0: foo
+1: bar
+2: baz
+
+Which No. of SSID is registered? &gt; 0
+Input passphrase (default NONE) &gt; foobarbaz
 Protected Wifi network
 SSID foo was registered and you can connect.
 </pre>

@@ -9,7 +9,7 @@ usage_exit() {
 }
 
 wifi_register () {
-    grep -o "ssid=\"$2\"" $1 # confirm that given SSID is not registered
+    grep -o "ssid=\"$2\"" $1 > /dev/null # confirm that given SSID is not registered
     if [ $? -eq 0 ]; then
         echo "Given SSID \"$2\" is already registered! This program don't update wpa_supplicant.conf."
         exit 1

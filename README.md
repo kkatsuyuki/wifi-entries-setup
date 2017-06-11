@@ -31,18 +31,24 @@ Then move this executable `addWifi` file to the directory included in `$PATH` (u
 
 ## Usage
 
-Get the root privilege and execute `addWifi` 
-with SSID and Passphrase(Optional) arguments. 
+Get the root privilege and execute `addWifi`. 
 
-    Usage: addWifi [-h] SSID [Passphrase]
+    Usage: addWifi [-h]
 
-IF Passphrase is not given, the entry is registered as the open network.
-If `addWifi` is executed with `-h` option or no arguments, the help 
-message is appeared.
+Input the SSID and Passphrase (optional) interactively following the prompt.
+If Passphrase is not given, the entry is registered as the open network.
+If `-h` option is added, the help message is appeared.
 The following is the example to add the wireless
 network whose SSID and passphrase are "foo" and "foobarbaz", respectively.
 
-    # addWifi foo foobarbaz
+    # addWifi
+    Staring to scan WiFi ...
+    0: foo
+    1: bar
+    2: baz
+    
+    Which No. of SSID is registered? > 0
+    Input passphrase (default NONE) > foobarbaz
     Protected Wifi network
     SSID foo was registered and you can connect.
 

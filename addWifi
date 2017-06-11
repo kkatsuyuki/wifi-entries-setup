@@ -3,53 +3,83 @@
 CONFIG_FILE=/etc/wpa_supplicant/wpa_supplicant.conf
 
 usage_exit() {
-    echo -e "Need the root permission\nUsage: $0 [-h] SSID [Passphrase]\nA Given SSID is registered on wpa_supplicant.conf.If Passphrase is not given, the network is registered as the open network.
+    echo -e "Usage: $0 [-h]\nThis command needs the root permission. Input SSID No. and Passphrase interactively, the WiFi is registered in wpa_supplicant.conf. If Passphrase is not given, the network is registered as the open network.
     -h    this help message is appeared"
     exit 1
 }
 
-# check the help option or no arguments
-if [ $# -eq 0 ]; then
-    usage_exit
-else
-    while getopts h OPT
-    do
-        case $OPT in
-            h) usage_exit
-               ;;
-            \?) usage_exit
-                ;;
-        esac
-    done
-    shift "$((OPTIND - 1))"
-fi
+wifi_register () {
+    grep -o "ssid=\"$2\"" $1 # confirm that given SSID is not registered
+    if [ $? -eq 0 ]; then
+        echo "Given SSID \"$2\" is already registered! This program don't update wpa_supplicant.conf."
+        exit 1
+    fi
 
-# add SSID
+    if [ -z $PASS ]; then
+        echo "WiFi Open network"
+        echo "" >> $1
+        echo -e "network={\nssid=\"$2\"\nkey_mgmt=NONE\n}" >> $1 && echo "SSID $2 was registered and you can connect."
+    else
+        TEMP=`wpa_passphrase $2 $3`
+        if [ $? -eq 0 ]; then
+            echo "" >> $1
+            echo -e "$TEMP" >> $1  && echo "SSID $2 was registered and you can connect."
+        else
+            echo -e "$TEMP"
+            exit 1
+        fi
+    fi
+}
+
+# check the help option
+while getopts h OPT
+do
+    case $OPT in
+        h) usage_exit
+           ;;
+        \?) usage_exit
+            ;;
+    esac
+done
+shift "$((OPTIND - 1))"
+
+# check root priviledge
 if [ `whoami` != "root" ]; then
     echo "Must be root privilege to configure wifi settings"
     exit 1
-else
-    if [ $# -lt 1 -o 2 -lt $# ]; then
-        echo "The number of args is not correct! Give one or two arguments!"
-        exit 1
-    else
-        grep -o "ssid=\"$1\"" $CONFIG_FILE # confirm that given SSID is not registered
-        if [ $? -eq 1 ]; then
-            echo "" >> $CONFIG_FILE
-            if [ $# -eq 1 ]; then   # only SSID argument
-                echo "Wifi Open network"
-                echo -e "network={\nssid=\"$1\"\nkey_mgmt=NONE\n}" >> $CONFIG_FILE && echo "SSID $1 was registered and you can connect."
-            else                    # SSID and password
-                echo "Protected Wifi network"
-                TEMP=`wpa_passphrase $1 $2`
-                if [ $? -eq 0 ]; then
-                    echo -e "$TEMP" >> $CONFIG_FILE  && echo "SSID $1 was registered and you can connect."
-                else
-                    echo -e "$TEMP"
-                fi
-            fi
-        else
-            echo "Given SSID \"$1\" is already registered! This program won't update wpa_supplicant.conf."
-        fi
-    fi
 fi
+
+# if needed, enable network adptor
+ip link show|grep -i -P "wlp2s0.*[,<]up[,>]" > /dev/null
+if [ $? -ne 0 ]; then
+    ip link set wlp2s0 up
+fi
+
+# scan wifi
+echo "Staring to scan WiFi ..."
+cnt=0
+for line in `sudo iw dev wlp2s0 scan|grep -i SSID|sed 's/SSID: //g'`
+do
+    SSID+=("$line")
+    echo "$cnt: $line"
+    cnt=$((++cnt))
+done
+
+# choose SSID by inputing No.
+echo -e -n "\nWhich No. of SSID is registered? > "
+read num
+if ! [[ $num =~  ^[0-9]+$ ]]; then
+    echo "Input integers!"
+    exit 1
+fi
+if [ $num -lt 0 -o ${#SSID[@]} -le $num  ]; then
+    echo "Corresponding SSID is not existed!"
+    exit 1
+fi
+
+# input passphrase
+echo -n "Input passphrase (default NONE) > "
+read PASS
+
+# register wifi
+wifi_register $CONFIG_FILE ${SSID[$num]} $PASS

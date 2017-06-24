@@ -64,3 +64,8 @@ Then get the authentification and IP address from the wireless network.
 
     # wpa_supplicant -B -i <interface> -c /to/yourpath/wpa_supplicant.conf
     # dhcpcd -b <interface>
+
+## References
+I refered to the following to make this source code.
+
+-   [How to return an array in bash without using globals?](https://stackoverflow.com/questions/10582763/how-to-return-an-array-in-bash-without-using-globals/15982208#15982208)

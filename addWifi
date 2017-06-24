@@ -31,6 +31,25 @@ wifi_register () {
     fi
 }
 
+use_array() {
+    local r=$( declare -p $1 )
+    r=${r#declare\ -a\ *=}
+    # Strip keys so printed definition will be a simple list (like when using
+    # "${array[@]}").  One side effect of having keys in the definition is
+    # that when appending arrays (i.e. `a1+=$( use_array a2 )`), values at
+    # matching indices merge instead of pushing all items onto array.
+    echo ${r//\[[0-9]\]=}
+}
+
+ssid_array () {
+    local SSID
+    while read line; do
+        SSID+=("$line")
+    done
+    use_array SSID
+    return 0
+}
+
 # check the help option
 while getopts h OPT
 do
@@ -55,14 +74,15 @@ if [ $? -ne 0 ]; then
     ip link set wlp2s0 up
 fi
 
-# scan wifi
+# scaned wifi is assigned on array
 echo "Staring to scan WiFi ..."
-cnt=0
-for line in `sudo iw dev wlp2s0 scan|grep -i SSID|sed 's/SSID: //g'`
+eval SSID=`iw dev wlp2s0 scan|grep -io -E 'SSID: .*'|sed 's/SSID: //g'|ssid_array`
+
+# display scaned wifi
+end=$((${#SSID[@]}-1))
+for int in `seq -s " " 0 $end`
 do
-    SSID+=("$line")
-    echo "$cnt: $line"
-    cnt=$((++cnt))
+    echo "$int: ${SSID[$int]}"
 done
 
 # choose SSID by inputing No.
@@ -72,7 +92,7 @@ if ! [[ $num =~  ^[0-9]+$ ]]; then
     echo "Input integers!"
     exit 1
 fi
-if [ $num -lt 0 -o ${#SSID[@]} -le $num  ]; then
+if [ $num -lt 0 -o $end -lt $num  ]; then
     echo "Corresponding SSID is not existed!"
     exit 1
 fi

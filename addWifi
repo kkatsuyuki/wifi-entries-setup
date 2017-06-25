@@ -102,4 +102,4 @@ echo -n "Input passphrase (default NONE) > "
 read PASS
 
 # register wifi
-wifi_register $CONFIG_FILE ${SSID[$num]} $PASS
+wifi_register $CONFIG_FILE "${SSID[$num]}" $PASS

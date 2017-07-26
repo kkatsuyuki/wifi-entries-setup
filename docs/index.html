@@ -7,10 +7,7 @@ layout: default
 <p>
 Using <code>wpa_supplicant</code> as the authetification software of Wi-Fi network,
 every time I connect the new network, I have to edit its configuration file
-(ex. <code>wpa_supplicant.conf</code>). Editing it manually is very time-consuming for me.
-Using the interactive command <code>wpa_cli</code> attached to <code>wpa_supplicant</code>, 
-we can set the new Wi-Fi network to the configuration. But <code>wpa_cli</code> 
-actually overwrite it, so the original entries are removed. 
+(ex. <code>wpa_supplicant.conf</code>). Editing it manually is very time-consuming for me,
 So I made the shell-script program <code>addWifi</code> to add the new Wi-Fi entry to
 the assigned configuration file.
 </p>
@@ -31,19 +28,26 @@ file (ex. <code>wpa_supplicant.conf</code>)</li>
 <div id="outline-container-orgb246330" class="outline-2">
 <h2 id="orgb246330">Usage</h2>
 <div class="outline-text-2" id="text-orgb246330">
-<p>
-Get the root privilege and execute `addWifi`. 
-</p>
 <pre class="example">
 Usage: addWifi [-h]
 </pre>
 
 <p>
+Get the root privilege and execute <code>addWifi</code>. 
 Input the SSID and Passphrase (optional) interactively following the prompt.
-If Passphrase is not given, the entry is registered as the open network.
-If `-h` option is added, the help message is appeared.
-The following is the example to add the wireless
-network whose SSID and passphrase are "foo" and "foobarbaz", respectively.
+</p>
+<ul class="org-ul">
+<li>Passphrase is not given, then the entry is registered as the open network.</li>
+<li>If the command executed with <code>-h</code> option, the help message is appeared.</li>
+</ul>
+
+
+<p>
+<b>Example</b>
+</p>
+
+<p>
+Add the wireless network whose SSID and passphrase are "foo" and "foobarbaz", respectively.
 </p>
 <pre class="example">
 # addWifi

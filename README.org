@@ -21,6 +21,11 @@
    #+BEGIN_SRC sh
    CONFIG_FILE=/to/yourpath/wpa_supplicant.conf
    #+END_SRC
+   
+   Edit =addWifi= to select an =INTERFACE= for your system
+   #+BEGIN_SRC sh
+   INTERFACE=wlp2s0
+   #+END_SRC
 
    Then move this executable =addWifi= file to the directory included in =$PATH= (usually =/usr/bin/=).
    #+BEGIN_SRC sh

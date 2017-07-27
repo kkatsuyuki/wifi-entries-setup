@@ -33,7 +33,7 @@
    #+END_EXAMPLE
 
    Get the root privilege and execute =addWifi=.
-   Input the SSID and Passphrase (optional) interactively following the prompt.
+   Input SSID and Passphrase (optional) interactively following the prompt.
    - Passphrase is not given, then the entry is registered as the open network.
    - If the command executed with =-h= option, the help message is appeared.
 

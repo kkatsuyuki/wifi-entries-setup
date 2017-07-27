@@ -1,7 +1,7 @@
 theme: jekyll-theme-cayman
 
 title: "addWifi"
-tagline: Shell-script program to add the new Wi-Fi to wpa_supplicant.conf
+tagline: Shell-script program to add a new Wi-Fi to wpa_supplicant.conf
 
 author:
   name:       kkatsuyuki

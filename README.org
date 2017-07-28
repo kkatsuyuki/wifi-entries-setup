@@ -17,9 +17,10 @@
    $ cd addWifi
    #+END_SRC
 
-   Edit =addWifi= to adjust =CONFIG_FILE= to your environment.
+   Edit =addWifi=, =WIFI_IF= to adjust =CONFIG_FILE= to your environment.
    #+BEGIN_SRC sh
    CONFIG_FILE=/to/yourpath/wpa_supplicant.conf
+   WIFI_IF="your_wifi_if"
    #+END_SRC
 
    Then move this executable =addWifi= file to the directory included in =$PATH= (usually =/usr/bin/=).

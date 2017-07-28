@@ -75,7 +75,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # scaned wifi is assigned on array
-echo "Staring to scan WiFi ..."
+echo "Starting to scan WiFi ..."
 eval SSID=`iw dev wlp2s0 scan|grep -io -E 'SSID: .*'|sed 's/SSID: //g'|ssid_array`
 
 # display scaned wifi

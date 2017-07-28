@@ -31,7 +31,7 @@ layout: default
   Add the wireless network whose SSID and passphrase are "foo" and "foobarbaz", respectively.
   #+BEGIN_EXAMPLE
   # addWifi
-  Staring to scan WiFi ...
+  Starting to scan WiFi ...
   0: foo
   1: bar
   2: baz

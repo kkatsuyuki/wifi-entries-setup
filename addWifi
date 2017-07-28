@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 CONFIG_FILE=/etc/wpa_supplicant/wpa_supplicant.conf
+WIFI_IF="wlp2s0"
 
 usage_exit() {
     echo -e "Usage: $0 [-h]\nThis command needs the root permission. Input SSID No. and Passphrase interactively, the WiFi is registered in wpa_supplicant.conf. If Passphrase is not given, the network is registered as the open network.
@@ -69,14 +70,14 @@ if [ `whoami` != "root" ]; then
 fi
 
 # if needed, enable network adptor
-ip link show|grep -i -P "wlp2s0.*[,<]up[,>]" > /dev/null
+ip link show|grep -i -P "${INTERFACE}.*[,<]up[,>]" > /dev/null
 if [ $? -ne 0 ]; then
-    ip link set wlp2s0 up
+    ip link set $WIFI_IF up
 fi
 
 # scaned wifi is assigned on array
 echo "Starting to scan WiFi ..."
-eval SSID=`iw dev wlp2s0 scan|grep -io -E 'SSID: .*'|sed 's/SSID: //g'|ssid_array`
+eval SSID=`iw dev $WIFI_IF scan|grep -io -E 'SSID: .*'|sed 's/SSID: //g'|ssid_array`
 
 # display scaned wifi
 end=$((${#SSID[@]}-1))

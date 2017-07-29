@@ -70,13 +70,13 @@ if [ `whoami` != "root" ]; then
 fi
 
 # if needed, enable network adptor
-ip link show|grep -i -P "$INTERFACE.*[,<]up[,>]" > /dev/null
+ip link show|grep -i -P "${INTERFACE}.*[,<]up[,>]" > /dev/null
 if [ $? -ne 0 ]; then
     ip link set $INTERFACE up
 fi
 
 # scaned wifi is assigned on array
-echo "Staring to scan WiFi ..."
+echo "Starting to scan WiFi ..."
 eval SSID=`iw dev $INTERFACE scan|grep -io -E 'SSID: .*'|sed 's/SSID: //g'|ssid_array`
 
 # display scaned wifi

@@ -1,10 +1,10 @@
 theme: jekyll-theme-cayman
 
-title: "addWifi"
+title: "wifi-entries-setup"
 tagline: Shell-script program to add a new Wi-Fi to wpa_supplicant.conf
 
 author:
   name:       kkatsuyuki
   url:        https://github.com/kkatsuyuki
 
-repo_url: https://github.com/kkatsuyuki/addWifi
+repo_url: https://github.com/kkatsuyuki/wifi-entries-setup

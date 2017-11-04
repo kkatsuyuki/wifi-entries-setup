@@ -1,22 +1,22 @@
 ---
 layout: default
 ---
-<div id="outline-container-org6f4e722" class="outline-2">
-<h2 id="org6f4e722">Motivation</h2>
-<div class="outline-text-2" id="text-org6f4e722">
+<div id="outline-container-org48c1749" class="outline-2">
+<h2 id="org48c1749">Motivation</h2>
+<div class="outline-text-2" id="text-org48c1749">
 <p>
 Using <code>wpa_supplicant</code> as the authetification software of Wi-Fi network,
 every time I connect the new network, I have to edit its configuration file
 (ex. <code>wpa_supplicant.conf</code>). Editing it manually is very time-consuming for me,
-So I made the shell-script program <code>addWifi</code> to add the new Wi-Fi entry to
+So I made the shell-script program <code>wifi-entries-setup</code> to add the new Wi-Fi entry to
 the assigned configuration file.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org1635807" class="outline-2">
-<h2 id="org1635807">Features</h2>
-<div class="outline-text-2" id="text-org1635807">
+<div id="outline-container-org21a8303" class="outline-2">
+<h2 id="org21a8303">Features</h2>
+<div class="outline-text-2" id="text-org21a8303">
 <ul class="org-ul">
 <li>Input Wi-Fi entry (<code>SSID</code>, <code>[Passphrase]</code>) are added to the assigned configuration 
 file (ex. <code>wpa_supplicant.conf</code>)</li>
@@ -25,15 +25,15 @@ file (ex. <code>wpa_supplicant.conf</code>)</li>
 </div>
 </div>
 
-<div id="outline-container-orgb246330" class="outline-2">
-<h2 id="orgb246330">Usage</h2>
-<div class="outline-text-2" id="text-orgb246330">
+<div id="outline-container-orge8b62f9" class="outline-2">
+<h2 id="orge8b62f9">Usage</h2>
+<div class="outline-text-2" id="text-orge8b62f9">
 <pre class="example">
-Usage: addWifi [-h]
+Usage: wifi-entries-setup [-h]
 </pre>
 
 <p>
-Get the root privilege and execute <code>addWifi</code>. 
+Get the root privilege and execute <code>wifi-entries-setup</code>. 
 Input SSID and Passphrase (optional) interactively following the prompt.
 </p>
 <ul class="org-ul">
@@ -50,7 +50,7 @@ Input SSID and Passphrase (optional) interactively following the prompt.
 Add the wireless network whose SSID and passphrase are "foo" and "foobarbaz", respectively.
 </p>
 <pre class="example">
-# addWifi
+# wifi-entries-setup
 Starting to scan WiFi ...
 0: foo
 1: bar
@@ -64,11 +64,11 @@ SSID foo was registered and you can connect.
 </div>
 </div>
 
-<div id="outline-container-org3970faa" class="outline-2">
-<h2 id="org3970faa">Install</h2>
-<div class="outline-text-2" id="text-org3970faa">
+<div id="outline-container-org8f8f2e4" class="outline-2">
+<h2 id="org8f8f2e4">Install</h2>
+<div class="outline-text-2" id="text-org8f8f2e4">
 <p>
-Refer to <a href="https://github.com/kkatsuyuki/addWifi">README</a>.
+Refer to <a href="https://github.com/kkatsuyuki/wifi-entries-setup">README</a>.
 </p>
 </div>
 </div>

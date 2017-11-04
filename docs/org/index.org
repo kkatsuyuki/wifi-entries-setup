@@ -7,7 +7,7 @@ layout: default
   Using =wpa_supplicant= as the authetification software of Wi-Fi network,
   every time I connect the new network, I have to edit its configuration file
   (ex. =wpa_supplicant.conf=). Editing it manually is very time-consuming for me,
-  So I made the shell-script program =addWifi= to add the new Wi-Fi entry to
+  So I made the shell-script program =wifi-entries-setup= to add the new Wi-Fi entry to
   the assigned configuration file.
 
 * Features
@@ -17,10 +17,10 @@ layout: default
 
 * Usage
   #+BEGIN_EXAMPLE
-  Usage: addWifi [-h]
+  Usage: wifi-entries-setup [-h]
   #+END_EXAMPLE
 
-  Get the root privilege and execute =addWifi=. 
+  Get the root privilege and execute =wifi-entries-setup=. 
   Input SSID and Passphrase (optional) interactively following the prompt.
   - Passphrase is not given, then the entry is registered as the open network.
   - If the command executed with =-h= option, the help message is appeared.
@@ -30,7 +30,7 @@ layout: default
 
   Add the wireless network whose SSID and passphrase are "foo" and "foobarbaz", respectively.
   #+BEGIN_EXAMPLE
-  # addWifi
+  # wifi-entries-setup
   Starting to scan WiFi ...
   0: foo
   1: bar
@@ -43,5 +43,5 @@ layout: default
   #+END_EXAMPLE
 
 * Install
-  Refer to [[https://github.com/kkatsuyuki/addWifi][README]].
+  Refer to [[https://github.com/kkatsuyuki/wifi-entries-setup][README]].
 

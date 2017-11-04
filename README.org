@@ -1,5 +1,5 @@
-* addWifi
-  =addWifi= is the shell-script program which adds the new Wi-Fi entry
+* wifi-entries-setup
+  =wifi-entries-setup= is the shell-script program which adds the new Wi-Fi entry
   to assigned configuration file (ex. =wpa_supplicant.conf=)
   using =wpa_passphrase=.
   # To my knowledge interactive program =wpa_cli= attached with =wpa_supplicant=
@@ -11,33 +11,33 @@
 
 ** Install
    Download and modify the path of the configuration file
-   (default: =/etc/wpa_supplicant/wpa_supplicant.conf=) in =addWifi=.
+   (default: =/etc/wpa_supplicant/wpa_supplicant.conf=) in =wifi-entries-setup=.
    #+BEGIN_SRC sh
-   $ git clone https://github.com/kkatsuyuki/addWifi.git
-   $ cd addWifi
+   $ git clone https://github.com/kkatsuyuki/wifi-entries-setup.git
+   $ cd wifi-entries-setup
    #+END_SRC
 
-   Edit =addWifi= to adjust =CONFIG_FILE= to your environment.
+   Edit =wifi-entries-setup= to adjust =CONFIG_FILE= to your environment.
    #+BEGIN_SRC sh
    CONFIG_FILE=/to/yourpath/wpa_supplicant.conf
    #+END_SRC
 
-   Edit =addWifi= to select an =INTERFACE= for your system
+   Edit =wifi-entries-setup= to select an =INTERFACE= for your system
    #+BEGIN_SRC sh
    INTERFACE="wlp2s0"
    #+END_SRC
 
-   Then move this executable =addWifi= file to the directory included in =$PATH= (usually =/usr/bin/=).
+   Then move this executable =wifi-entries-setup= file to the directory included in =$PATH= (usually =/usr/bin/=).
    #+BEGIN_SRC sh
-   $ cp addWifi /usr/bin/
+   $ cp wifi-entries-setup /usr/bin/
    #+END_SRC
 
 ** Usage
    #+BEGIN_EXAMPLE
-   Usage: addWifi [-h]
+   Usage: wifi-entries-setup [-h]
    #+END_EXAMPLE
 
-   Get the root privilege and execute =addWifi=.
+   Get the root privilege and execute =wifi-entries-setup=.
    Input SSID and Passphrase (optional) interactively following the prompt.
    - Passphrase is not given, then the entry is registered as the open network.
    - If the command executed with =-h= option, the help message is appeared.
@@ -46,7 +46,7 @@
 
    Add the wireless network whose SSID and passphrase are "foo" and "foobarbaz", respectively.
    #+BEGIN_EXAMPLE
-   # addWifi
+   # wifi-entries-setup
    Starting to scan WiFi ...
    0: foo
    1: bar
